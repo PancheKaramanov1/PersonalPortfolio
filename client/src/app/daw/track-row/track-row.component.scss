@@ -1,0 +1,194 @@
+.track {
+  display: grid;
+  grid-template-columns: minmax(8rem, 10rem) 1fr;
+  align-items: stretch;
+  gap: 0.75rem 1rem;
+  padding: 0.45rem 0;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.track--muted {
+  opacity: 0.45;
+}
+
+.track__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.track__label {
+  display: flex;
+  align-items: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding-left: 0.65rem;
+}
+
+.track__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding-left: 0.65rem;
+}
+
+.track__mute {
+  width: 1.6rem;
+  height: 1.6rem;
+  flex-shrink: 0;
+  padding: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--muted) 45%, transparent);
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+
+  &:hover {
+    color: var(--accent-2);
+    border-color: var(--accent-2);
+  }
+}
+
+.track__mute--active {
+  color: #ff6666;
+  border-color: color-mix(in srgb, #ff6666 55%, transparent);
+  background: color-mix(in srgb, #ff6666 12%, transparent);
+}
+
+.track__vol {
+  width: 3.5rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.track__steps {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.step {
+  aspect-ratio: 1;
+  min-height: 26px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    box-shadow: inset 0 0 12px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+}
+
+.step--on {
+  background: color-mix(in srgb, var(--accent) 22%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.step--playhead {
+  box-shadow:
+    0 0 0 1px var(--accent-2),
+    inset 0 0 14px color-mix(in srgb, var(--accent-2) 18%, transparent);
+}
+
+.step--on.step--playhead {
+  background: color-mix(in srgb, var(--accent) 38%, #0a100c);
+}
+
+.step--synth {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step__note {
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-2);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.synth-panel {
+  padding: 0.55rem 0.75rem 0.75rem;
+  margin: 0.15rem 0 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--surface) 94%, #050806);
+}
+
+.synth-panel__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: flex-end;
+}
+
+.synth-param {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.synth-param__label {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.synth-param__select {
+  padding: 0.3rem 0.45rem;
+  font-size: 0.78rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent-2) 55%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+.synth-param__slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.synth-param__range {
+  width: 5rem;
+  accent-color: var(--accent-2);
+  cursor: pointer;
+}
+
+.synth-param__value {
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-2);
+  white-space: nowrap;
+  min-width: 3.2rem;
+}

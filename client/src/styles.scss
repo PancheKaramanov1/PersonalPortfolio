@@ -1,0 +1,9 @@
+@import './hacker.css';
+
+.inline-link {
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+
+  &:hover {
+    border-bottom-color: var(--accent-2);
+  }
+}

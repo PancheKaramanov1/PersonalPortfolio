@@ -1,0 +1,41 @@
+<div class="transport" role="group" aria-label="Transport">
+  <div class="transport__btns">
+    <button
+      type="button"
+      class="transport__btn transport__btn--play"
+      [class.transport__btn--active]="state.isPlaying()"
+      (click)="onPlay()"
+      [disabled]="state.isPlaying()"
+      aria-pressed="false"
+    >
+      Play
+    </button>
+    <button
+      type="button"
+      class="transport__btn transport__btn--stop"
+      (click)="onStop()"
+      [disabled]="!state.isPlaying()"
+    >
+      Stop
+    </button>
+  </div>
+
+  <div class="transport__tempo">
+    <label class="transport__label" for="daw-bpm">Tempo</label>
+    <div class="transport__bpm">
+      <input
+        id="daw-bpm"
+        type="range"
+        min="60"
+        max="180"
+        step="1"
+        [value]="state.bpm()"
+        (input)="onBpmInput($event)"
+        aria-valuemin="60"
+        aria-valuemax="180"
+        [attr.aria-valuenow]="state.bpm()"
+      />
+      <span class="transport__bpm-readout" aria-live="polite">{{ state.bpm() }} BPM</span>
+    </div>
+  </div>
+</div>

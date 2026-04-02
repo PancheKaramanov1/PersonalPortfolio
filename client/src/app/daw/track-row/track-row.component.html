@@ -1,0 +1,106 @@
+<div class="track" role="row" [class.track--muted]="isMuted()">
+  <div class="track__head">
+    <div class="track__label" role="rowheader">{{ label }}</div>
+    <div class="track__controls">
+      <button
+        type="button"
+        class="track__mute"
+        [class.track__mute--active]="isMuted()"
+        (click)="onMute()"
+        [attr.aria-label]="label + (isMuted() ? ' unmute' : ' mute')"
+      >
+        {{ isMuted() ? 'M' : 'M' }}
+      </button>
+      <input
+        type="range"
+        class="track__vol"
+        min="0"
+        max="1"
+        step="0.05"
+        [value]="volume()"
+        (input)="onVolume($event)"
+        [attr.aria-label]="label + ' volume'"
+      />
+    </div>
+  </div>
+
+  <div class="track__steps" role="group" [attr.aria-label]="label + ' steps'">
+    @for (on of steps(); track $index) {
+      <button
+        type="button"
+        class="step"
+        [class.step--on]="on"
+        [class.step--synth]="isSynth() && on"
+        [class.step--playhead]="state.currentStep() === $index"
+        (click)="toggle($index)"
+        [attr.aria-label]="label + ' step ' + ($index + 1) + (on ? ', active' : '')"
+        [attr.aria-pressed]="on"
+      >@if (isSynth() && on) {<span class="step__note">{{ stepNoteLabel($index) }}</span>}</button>
+    }
+  </div>
+</div>
+
+@if (isSynth()) {
+  <div class="synth-panel">
+    <div class="synth-panel__row">
+      <label class="synth-param">
+        <span class="synth-param__label">Wave</span>
+        <select
+          class="synth-param__select"
+          [ngModel]="state.synthConfig().waveform"
+          (ngModelChange)="onWaveform($event)"
+        >
+          @for (wf of waveforms; track wf) {
+            <option [value]="wf">{{ wf }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="synth-param">
+        <span class="synth-param__label">Note</span>
+        <select
+          class="synth-param__select"
+          [ngModel]="state.synthConfig().noteIndex"
+          (ngModelChange)="onNoteChange($event)"
+        >
+          @for (n of synthNotes; track n.label; let i = $index) {
+            <option [value]="i">{{ n.label }}</option>
+          }
+        </select>
+        <span class="synth-param__value">{{ synthFreqLabel }}</span>
+      </label>
+
+      <label class="synth-param">
+        <span class="synth-param__label">Attack</span>
+        <div class="synth-param__slider-row">
+          <input
+            type="range"
+            class="synth-param__range"
+            min="0.002"
+            max="0.3"
+            step="0.005"
+            [value]="state.synthConfig().attack"
+            (input)="onAttack($event)"
+          />
+          <span class="synth-param__value">{{ attackLabel }}</span>
+        </div>
+      </label>
+
+      <label class="synth-param">
+        <span class="synth-param__label">Release</span>
+        <div class="synth-param__slider-row">
+          <input
+            type="range"
+            class="synth-param__range"
+            min="0.02"
+            max="1.0"
+            step="0.01"
+            [value]="state.synthConfig().release"
+            (input)="onRelease($event)"
+          />
+          <span class="synth-param__value">{{ releaseLabel }}</span>
+        </div>
+      </label>
+    </div>
+  </div>
+}

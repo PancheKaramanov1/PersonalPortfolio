@@ -1,0 +1,41 @@
+.grid-wrap {
+  margin-top: 0.5rem;
+}
+
+.grid-wrap__ruler {
+  display: grid;
+  grid-template-columns: minmax(8rem, 10rem) 1fr;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed color-mix(in srgb, var(--muted) 35%, transparent);
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.grid-wrap__ruler-spacer {
+  display: block;
+}
+
+.grid-wrap__ticks {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.tick {
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+.grid-wrap__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}

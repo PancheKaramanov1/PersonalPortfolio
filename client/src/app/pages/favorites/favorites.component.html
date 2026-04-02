@@ -1,0 +1,137 @@
+<div class="page container">
+  <app-section-header
+    headingId="favorites-heading"
+    title="Favorites"
+  />
+
+  @if (loading) {
+    <p class="state state--loading" role="status">Loading albums…</p>
+  } @else {
+    <div class="toolbar" role="search">
+      <label class="field field--grow">
+        <span class="field__label">Search</span>
+        <input
+          class="field__control"
+          type="search"
+          [(ngModel)]="search"
+          placeholder="Title, artist, notes…"
+          autocomplete="off"
+        />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Genre</span>
+        <select class="field__control" [(ngModel)]="genreFilter">
+          <option value="">All</option>
+          @for (g of genres(); track g) {
+            <option [value]="g">{{ g }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span class="field__label">Sort</span>
+        <select class="field__control" [ngModel]="sortKey" (ngModelChange)="onSort($event)">
+          <option value="created_at">Date added</option>
+          <option value="title">Title</option>
+          <option value="artist">Artist</option>
+          <option value="year">Year</option>
+          <option value="rating">Rating</option>
+        </select>
+      </label>
+    </div>
+
+    <section class="section" aria-labelledby="albums-fav-heading">
+      <div class="section__head">
+        <h2 id="albums-fav-heading" class="section__title">Albums</h2>
+        <button
+          type="button"
+          class="section__toggle"
+          (click)="toggleAddForm()"
+        >
+          {{ addFormOpen ? 'Cancel' : '+ Add album' }}
+        </button>
+      </div>
+
+      @if (addFormOpen) {
+        <div class="add-form">
+          <div class="add-form__grid">
+            <label class="field">
+              <span class="field__label">Title *</span>
+              <input class="field__control" type="text" [(ngModel)]="addForm.title" />
+            </label>
+            <label class="field">
+              <span class="field__label">Artist *</span>
+              <input class="field__control" type="text" [(ngModel)]="addForm.artist" />
+            </label>
+            <label class="field">
+              <span class="field__label">Year</span>
+              <input class="field__control" type="number" [(ngModel)]="addForm.year" />
+            </label>
+            <label class="field">
+              <span class="field__label">Genre</span>
+              <input class="field__control" type="text" [(ngModel)]="addForm.genre" placeholder="e.g. Post-Punk" />
+            </label>
+            <label class="field">
+              <span class="field__label">Rating (0–10)</span>
+              <input class="field__control" type="number" min="0" max="10" step="0.1" [(ngModel)]="addForm.rating" />
+            </label>
+            <label class="field">
+              <span class="field__label">Top track</span>
+              <input class="field__control" type="text" [(ngModel)]="addForm.top_track" />
+            </label>
+            <label class="field field--wide">
+              <span class="field__label">Cover URL</span>
+              <input class="field__control" type="url" [(ngModel)]="addForm.cover_url" placeholder="https://…" />
+            </label>
+            <label class="field field--wide">
+              <span class="field__label">YouTube URL</span>
+              <input class="field__control" type="url" [(ngModel)]="addForm.youtube_url" placeholder="https://youtube.com/…" />
+            </label>
+            <label class="field field--wide">
+              <span class="field__label">Note</span>
+              <input class="field__control" type="text" [(ngModel)]="addForm.note" placeholder="Personal notes on this album…" />
+            </label>
+            <label class="field field--check">
+              <input type="checkbox" [(ngModel)]="addForm.favorite" />
+              <span class="field__label">Favorite</span>
+            </label>
+          </div>
+          <div class="add-form__actions">
+            <button
+              type="button"
+              class="btn btn--primary"
+              [disabled]="addLoading"
+              (click)="submitAlbum()"
+            >
+              {{ addLoading ? 'Saving…' : 'Save album' }}
+            </button>
+          </div>
+          @if (addError) {
+            <p class="feedback feedback--err" role="alert">{{ addError }}</p>
+          }
+          @if (addSuccess) {
+            <p class="feedback feedback--ok" role="status">{{ addSuccess }}</p>
+          }
+        </div>
+      }
+
+      @if (albumsOffline) {
+        <p class="state state--offline" role="status">
+          Couldn't load albums—API unreachable. Nothing was removed from Supabase.
+        </p>
+      } @else if (filteredAlbums().length === 0) {
+        <p class="state">No albums match your search.</p>
+      } @else {
+        <div class="grid grid--media">
+          @for (a of filteredAlbums(); track a.id) {
+            <app-album-card
+              [album]="a"
+              [listenUi]="true"
+            />
+          }
+        </div>
+      }
+    </section>
+  }
+</div>

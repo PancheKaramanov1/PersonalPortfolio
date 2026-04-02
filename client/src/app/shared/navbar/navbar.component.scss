@@ -1,0 +1,83 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 96%, var(--accent) 4%);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.brand__mark {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow:
+    0 0 16px color-mix(in srgb, var(--accent) 55%, transparent),
+    inset 0 0 8px color-mix(in srgb, #fff 25%, transparent);
+}
+
+.brand__text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+}
+
+.link {
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: none;
+  padding: 0.4rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  &.active {
+    color: var(--bg);
+    background: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 80%, #000);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

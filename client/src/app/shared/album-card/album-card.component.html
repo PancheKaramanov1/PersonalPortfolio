@@ -1,0 +1,72 @@
+<article class="acard">
+  @if (album.cover_url && !coverError) {
+    <div class="acard__cover">
+      <img
+        [src]="album.cover_url"
+        [alt]="album.title + ' cover'"
+        loading="lazy"
+        (error)="onCoverError()"
+      />
+    </div>
+  } @else {
+    <div class="acard__cover acard__cover--fallback">
+      <span class="acard__cover-initials">{{ initials }}</span>
+    </div>
+  }
+
+  <div class="acard__body">
+    <h3 class="acard__title">{{ album.title }}</h3>
+    <p class="acard__artist">{{ album.artist }}</p>
+    <p class="acard__meta">
+      @if (album.year) {
+        <span>{{ album.year }}</span>
+      }
+      @if (album.genre) {
+        <span class="dot">·</span>
+        <span>{{ album.genre }}</span>
+      }
+    </p>
+    @if (album.featured_track) {
+      <p class="acard__track">
+        <span class="label">Featured track</span> {{ album.featured_track }}
+      </p>
+    } @else if (album.top_track) {
+      <p class="acard__track"><span class="label">Top track</span> {{ album.top_track }}</p>
+    }
+    <div class="acard__rating" aria-label="Rating">
+      <span class="stars">♪</span>
+      <span>{{ album.rating ?? '—' }}</span>
+    </div>
+    @if (album.note) {
+      <p class="acard__note">{{ album.note }}</p>
+    }
+
+    @if (listenUi && canListen) {
+      <div class="acard__actions">
+        <button type="button" class="acard__listen" (click)="openListen($event)">Listen</button>
+      </div>
+    }
+  </div>
+
+  @if (listenUi && modalOpen) {
+    <div class="acard__overlay" (click)="closeListen()" role="presentation"></div>
+    <div
+      class="acard__dialog"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'Listen: ' + album.title"
+    >
+      <div class="acard__dialog-inner" (click)="$event.stopPropagation()">
+        <div class="acard__dialog-head">
+          <div>
+            <p class="acard__dialog-kicker">Listen</p>
+            <h4 class="acard__dialog-title">{{ album.title }}</h4>
+            <p class="acard__dialog-artist">{{ album.artist }}</p>
+          </div>
+          <button type="button" class="acard__close" (click)="closeListen()" aria-label="Close">×</button>
+        </div>
+        <app-album-player [album]="album" />
+      </div>
+    </div>
+  }
+</article>

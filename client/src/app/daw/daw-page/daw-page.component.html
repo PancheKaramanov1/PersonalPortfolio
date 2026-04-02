@@ -1,0 +1,15 @@
+<div class="daw page container">
+  <header class="daw__hero">
+    <h1 class="daw__title">Studio</h1>
+  </header>
+
+  <section class="daw__panel" aria-labelledby="seq-heading">
+    <h2 id="seq-heading" class="visually-hidden">Sequencer</h2>
+    <app-transport-controls />
+    <app-sequencer-grid />
+
+    <div class="daw__tools">
+      <button type="button" class="daw__ghost-btn" (click)="clearGrid()">Clear grid</button>
+    </div>
+  </section>
+</div>

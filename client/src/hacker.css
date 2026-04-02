@@ -1,0 +1,118 @@
+/*!
+ * Hacker.css — terminal / phosphor UI layer
+ * Green-on-black, monospace, sharp borders. Maps into app CSS variables.
+ */
+:root {
+  --hacker-bg: #070a08;
+  --hacker-surface: #0d1210;
+  --hacker-surface-2: #111a16;
+  --hacker-green: #33ff66;
+  --hacker-green-bright: #66ff99;
+  --hacker-cyan: #00ffcc;
+  --hacker-dim: #1f5c32;
+  --hacker-border: rgba(51, 255, 102, 0.28);
+  --hacker-border-strong: rgba(51, 255, 102, 0.5);
+  --hacker-muted: #6a9a7a;
+  --hacker-text: #dff7e8;
+  --hacker-glow: rgba(0, 255, 153, 0.12);
+  --hacker-font: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  --hacker-display: 'Share Tech Mono', 'JetBrains Mono', monospace;
+
+  --bg: var(--hacker-bg);
+  --surface: var(--hacker-surface);
+  --border: var(--hacker-border);
+  --text: var(--hacker-text);
+  --muted: var(--hacker-muted);
+  --accent: var(--hacker-green);
+  --accent-2: var(--hacker-cyan);
+  --shadow: 0 0 60px var(--hacker-glow), 0 12px 40px rgba(0, 0, 0, 0.45);
+  --font-sans: var(--hacker-font);
+  --font-display: var(--hacker-display);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: linear-gradient(rgba(51, 255, 102, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(51, 255, 102, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0.04;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.35) 2px,
+    rgba(0, 0, 0, 0.35) 4px
+  );
+}
+
+a {
+  color: var(--hacker-green-bright);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--hacker-green) 45%, transparent);
+}
+
+a:hover {
+  color: var(--hacker-cyan);
+  border-bottom-color: var(--hacker-cyan);
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--hacker-green);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  body::after {
+    display: none;
+  }
+}

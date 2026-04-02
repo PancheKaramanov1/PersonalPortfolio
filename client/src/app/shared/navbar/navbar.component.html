@@ -1,0 +1,18 @@
+<header class="nav">
+  <a routerLink="/" class="brand" aria-label="Home">
+    <span class="brand__mark"></span>
+    <span class="brand__text">Portfolio</span>
+  </a>
+  <nav class="links" aria-label="Primary">
+    @for (l of links; track l.path) {
+      <a
+        [routerLink]="l.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: l.path === '/' }"
+        class="link"
+      >
+        {{ l.label }}
+      </a>
+    }
+  </nav>
+</header>

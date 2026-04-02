@@ -1,0 +1,32 @@
+<div class="player">
+  <div class="player__head">
+    <span class="player__badge">{{ kindLabel }}</span>
+    @if (album.youtube_title) {
+      <p class="player__title">{{ album.youtube_title }}</p>
+    }
+  </div>
+
+  @if (hasEmbed) {
+    <div class="player__frame">
+      <iframe
+        [src]="safeUrl"
+        title="YouTube audio player"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+  } @else {
+    <p class="player__empty">No player available for this album yet.</p>
+  }
+
+  @if (album.featured_track || album.top_track) {
+    <p class="player__track">
+      @if (album.featured_track) {
+        <span class="player__track-label">Featured track</span> {{ album.featured_track }}
+      } @else if (album.top_track) {
+        <span class="player__track-label">Top track</span> {{ album.top_track }}
+      }
+    </p>
+  }
+</div>

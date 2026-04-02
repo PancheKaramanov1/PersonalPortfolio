@@ -1,0 +1,46 @@
+<div class="page container">
+  <app-hero
+    [name]="profile.name"
+    [role]="profile.role"
+    [intro]="profile.intro"
+    primaryLabel="Open studio"
+    primaryLink="/studio"
+    secondaryLabel="Music picks"
+    secondaryLink="/favorites"
+  />
+
+  <section class="band" aria-labelledby="into-heading">
+    <app-section-header headingId="into-heading" title="Currently into" />
+    <ul class="into">
+      @for (item of currentInto; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </section>
+
+  @if (loading) {
+    <p class="state state--loading" role="status">Loading highlights…</p>
+  } @else if (data) {
+    <section class="band" aria-labelledby="preview-heading">
+      <app-section-header
+        headingId="preview-heading"
+        title="From my favorites"
+      />
+      @if (highlightsOffline) {
+        <p class="state state--offline" role="status">
+          Preview unavailable (API offline). Your Supabase data is unchanged—run Express + <code>ng serve</code>, or fix
+          <code>apiUrl</code>.
+        </p>
+      }
+      @if (previewAlbums().length === 0) {
+        <p class="state">No albums to preview.</p>
+      } @else {
+        <div class="grid grid--media">
+          @for (a of previewAlbums(); track a.id) {
+            <app-album-card [album]="a" />
+          }
+        </div>
+      }
+    </section>
+  }
+</div>

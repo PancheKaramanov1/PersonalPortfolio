@@ -1,0 +1,58 @@
+.page {
+  padding-bottom: 3rem;
+}
+
+.container {
+  width: min(1100px, 100% - 2rem);
+  margin-inline: auto;
+}
+
+.band {
+  margin-top: 2.5rem;
+}
+
+.into {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.5rem;
+  color: color-mix(in srgb, var(--text) 88%, var(--muted));
+  line-height: 1.55;
+}
+
+.state {
+  margin: 1rem 0 0;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+
+  &--loading {
+    border-style: solid;
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+  }
+
+  &--offline {
+    border-style: solid;
+    border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    max-width: 52ch;
+
+    code {
+      font-size: 0.88em;
+      color: var(--accent-2);
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+
+  &--media {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+

@@ -1,0 +1,67 @@
+<div class="page container">
+  <header class="about-hero">
+    <h1 class="about-hero__title">About</h1>
+    <p class="about-hero__lead">
+      I'm a student and a full-stack developer experienced in
+      building software across web and game environments.
+    </p>
+    <p class="about-hero__lead">
+      I like systems that make sense—where each layer has a clear role and nothing feels accidental.
+    </p>
+  </header>
+
+  <section class="band" aria-labelledby="bg-heading">
+    <app-section-header headingId="bg-heading" title="Background" />
+    <p class="prose">
+      I got into development through curiosity about how things are made and how systems come together.
+    </p>
+    <p class="prose" style="margin-top: 0.75rem">
+      Since then, I've built full-stack web applications using Angular and Node.js,
+      and explored game development using C# and Unity.
+    </p>
+    <p class="prose" style="margin-top: 0.75rem">
+      One project I worked on:
+    </p>
+    <p class="prose">
+      <a
+        class="about-link"
+        href="https://bulletproofcupid.itch.io/neon-orbit"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Neon Orbit</a>
+    </p>
+    <p class="prose" style="margin-top: 0.75rem">
+      Working on games gave me a different perspective on performance, interaction,
+      and how small details affect the overall experience.
+    </p>
+  </section>
+
+  <section class="band" aria-labelledby="skills-heading">
+    <app-section-header headingId="skills-heading" title="Skills & stack" />
+    <div class="skills">
+      @for (block of skills; track block.group) {
+        <div class="skills__block">
+          <h3 class="skills__group">{{ block.group }}</h3>
+          <ul>
+            @for (item of block.items; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="interests-heading">
+    <app-section-header headingId="interests-heading" title="Interests" />
+    <ul class="fun">
+      @for (line of interests; track line) {
+        <li>{{ line }}</li>
+      }
+    </ul>
+    <p class="prose" style="margin-top: 1rem">
+      Lately, I've been interested in moving into cybersecurity, especially understanding systems
+      from a defensive and structural perspective.
+    </p>
+  </section>
+</div>

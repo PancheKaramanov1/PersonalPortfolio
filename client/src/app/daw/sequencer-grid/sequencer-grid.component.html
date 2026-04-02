@@ -1,0 +1,16 @@
+<div class="grid-wrap">
+  <div class="grid-wrap__ruler" aria-hidden="true">
+    <span class="grid-wrap__ruler-spacer"></span>
+    <div class="grid-wrap__ticks">
+      @for (n of stepLabels; track n) {
+        <span class="tick">{{ n }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="grid-wrap__rows" role="table" aria-label="Step sequencer">
+    @for (tr of state.tracks; track tr.id; let ti = $index) {
+      <app-track-row [trackIndex]="ti" [label]="tr.label" />
+    }
+  </div>
+</div>
